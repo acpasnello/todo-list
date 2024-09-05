@@ -8,4 +8,12 @@ export class Project extends Item {
         this.id = idCounter
         idCounter++
     }
+
+    set description(description) {
+        this._description = description
+    }
+
+    get description() {
+        return this._description
+    }
 }
