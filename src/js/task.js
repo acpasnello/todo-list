@@ -1,9 +1,9 @@
 import { Item } from "./parentClass.js"
 import { isValid } from "date-fns"
 
-let idCounter = 1
+let idCounter = 0
 
-export class Todo extends Item {
+export class Task extends Item {
     constructor(title) {
         super(title)
         this.id = idCounter
@@ -43,6 +43,14 @@ export class Todo extends Item {
         // Change this to accomodate priority settings later
         if (n >= 0 && n <= 3) {
             this._priority = n
-        }
+        } else return "Enter a valid priority"
     }
+
+    // get projectID() {
+    //     this._project
+    // }
+
+    // set projectID(id) {
+        // not sure how to handle checking if a number is a valid project ID from within this class definition
+    // }
 }

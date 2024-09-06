@@ -1,6 +1,6 @@
 import { Item } from "./parentClass.js"
 
-let idCounter = 1
+let idCounter = 0
 
 export class Project extends Item {
     constructor(title) {
