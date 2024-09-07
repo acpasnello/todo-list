@@ -1,10 +1,10 @@
-import '../scss/styles.scss'
+// import '../scss/styles.scss'
 import * as bootstrap from 'bootstrap'
 import "../styles.css";
 import { Task } from "./task.js";
 import { Project } from "./project.js";
 import { format } from "date-fns"
-import { pageStructure, addTaskCard, displayTodo } from "./layout.js";
+import { pageStructure, displayProjects, addTaskCard, displayTodo } from "./layout.js";
 
 let tasks = {}
 function addTask(title) {
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addTask("Test todo creation")
     addProject("Todo List")
+    addProject("Completed")
     console.log(projects)
     projects[0].description = "Default Todo List"
     // console.log(todos)
@@ -33,4 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let task = displayTodo(tasks[todoCount[i]])
         addTaskCard(task)
     }
+    
+    displayProjects(projects)
 })

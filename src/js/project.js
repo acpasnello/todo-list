@@ -1,4 +1,5 @@
 import { Item } from "./parentClass.js"
+import { isNumeric } from "./helpers.js"
 
 let idCounter = 0
 
@@ -7,6 +8,7 @@ export class Project extends Item {
         super(title)
         this.id = idCounter
         idCounter++
+        this.tasks = []
     }
 
     set description(description) {
@@ -15,5 +17,11 @@ export class Project extends Item {
 
     get description() {
         return this._description
+    }
+
+    addTask(id) {
+        if (isNumeric(id)) {
+            this.tasks.push(id)
+        }
     }
 }

@@ -1,15 +1,36 @@
-.container {
+body {
+    font-family: 'Roboto', 'Arial Narrow', Arial, sans-serif
+}
+
+.myContainer {
     display: flex;
     flex-direction: row;
 }
 
 .nav {
     flex-grow: 0;
-    flex-bases: 10%;
+    flex-basis: 15%;
+}
+
+.content {
+    flex-grow: 1;
 }
 
 .taskCard {
     margin: 12px;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 8px;
+
 }
 
+.taskTitle {
+    font-size: 18px;
+    margin-left: 4px;
+}
+
+.navProjectTitle {
+    border-bottom: 1px solid #303030;
+    padding: 4px 0;
+}
 /* @media (min-width) */
