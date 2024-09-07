@@ -4,7 +4,7 @@ import "../styles.css";
 import { Task } from "./task.js";
 import { Project } from "./project.js";
 import { format } from "date-fns"
-import { displayTodo } from "./displayTodo.js";
+import { pageStructure, addTaskCard, displayTodo } from "./layout.js";
 
 let tasks = {}
 function addTask(title) {
@@ -19,6 +19,8 @@ function addProject(title) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    pageStructure()
+
     addTask("Test todo creation")
     addProject("Todo List")
     console.log(projects)
@@ -29,6 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let todoCount = Object.keys(tasks)
     for (let i = 0; i < todoCount.length; i++) {
         let task = displayTodo(tasks[todoCount[i]])
-        document.body.appendChild(task)
+        addTaskCard(task)
     }
 })
