@@ -4,7 +4,7 @@ import "../styles.css";
 import { Task } from "./task.js";
 import { Project } from "./project.js";
 import { format } from "date-fns"
-import { pageStructure, displayProjects, addTaskCard, displayTodo } from "./layout.js";
+import { pageStructure, displayProjectsNav, addTaskCard, displayTodo, updateCurrentProject } from "./layout.js";
 
 let tasks = {}
 function addTask(title) {
@@ -24,16 +24,16 @@ document.addEventListener('DOMContentLoaded', function() {
     addTask("Test todo creation")
     addProject("Todo List")
     addProject("Completed")
-    console.log(projects)
     projects[0].description = "Default Todo List"
-    // console.log(todos)
-    // console.log(format(todos[0].timeCreated, 'h:m:ss aa MM/dd/yyyy'))
+    projects[0].addTask(tasks[0].id)
+    console.log(projects)
+    updateCurrentProject(projects[0].title)
     tasks[0].dueDate = new Date(2024,8,8)
-    let todoCount = Object.keys(tasks)
-    for (let i = 0; i < todoCount.length; i++) {
-        let task = displayTodo(tasks[todoCount[i]])
+    let todoCount = projects[0].tasks.length
+    for (let i = 0; i < todoCount; i++) {
+        let task = displayTodo(tasks[projects[0].tasks[i]])
         addTaskCard(task)
     }
     
-    displayProjects(projects)
+    displayProjectsNav(projects)
 })

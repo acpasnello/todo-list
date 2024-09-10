@@ -14,13 +14,13 @@ body {
 
 .content {
     flex-grow: 1;
+    padding-left: 12px;
 }
 
 .taskCard {
-    margin: 12px;
-    border: 1px solid black;
-    border-radius: 8px;
-    padding: 8px;
+    margin: 12px 0;
+    border-bottom: 1px solid black;
+    padding: 8px 0;
 
 }
 
@@ -31,6 +31,6 @@ body {
 
 .navProjectTitle {
     border-bottom: 1px solid #303030;
-    padding: 4px 0;
+    padding: 8px 0;
 }
 /* @media (min-width) */

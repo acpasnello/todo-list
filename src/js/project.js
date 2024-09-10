@@ -21,7 +21,9 @@ export class Project extends Item {
 
     addTask(id) {
         if (isNumeric(id)) {
-            this.tasks.push(id)
+            if (!this.tasks.includes(id)) {
+                this.tasks.push(id)
+            }
         }
     }
 }

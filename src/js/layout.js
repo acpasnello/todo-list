@@ -14,12 +14,16 @@ export function pageStructure() {
     container.innerHTML = 
     `
     <div class="nav"></div>
-    <div class="content"></div>
+    <div class="content">
+        <h1 id="currentProject"></h1>
+    </div>
     `
     document.body.appendChild(container)
+    
 }
 
-export function displayProjects(projects) {
+// Show list of user's projects in nav
+export function displayProjectsNav(projects) {
     let nav = document.querySelector('.nav')
     let projectIDs = Object.keys(projects)
     for (let i = 0; i < projectIDs.length; i++) {
@@ -30,11 +34,19 @@ export function displayProjects(projects) {
     }
 }
 
+// Updates the Title display at the top of the task list
+export function updateCurrentProject(title) {
+    let titleDisp = document.getElementById('currentProject')
+    titleDisp.innerText = title
+}
+
+// Appends individual task to display
 export function addTaskCard(card) {
     let contentDiv = document.querySelector('.content')
     contentDiv.appendChild(card)
 }
 
+// Creates div containing individual task info
 export function displayTodo(task) {
     let todoDiv = document.createElement('div')
     todoDiv.id = task.id
