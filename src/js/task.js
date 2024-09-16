@@ -1,15 +1,17 @@
-import { Item } from "./parentClass.js"
 import { isValid } from "date-fns"
+import { settings } from "./settings.js"
 
-let idCounter = 0
+// let idCounter = 0
 
-export class Task extends Item {
-    constructor(title) {
-        super(title)
-        this.id = idCounter
-        idCounter++
+export class Task {
+    constructor(title, project) {
+        this.title = title
+        this.timeCreated = Date.now()
+        this.lastModified = Date.now()
+        this._priority = settings.defaultPriority
         this.completed = false
         this.notes = ""
+        this.project = project
     }
 
     get dueDate() {
@@ -41,16 +43,19 @@ export class Task extends Item {
 
     set priority(n) {
         // Change this to accomodate priority settings later
-        if (n >= 0 && n <= 3) {
+        if (n >= settings.minPriority && n <= settings.maxPriority) {
             this._priority = n
-        } else return "Enter a valid priority"
+        } else return `Enter a valid priority, from ${settings.minPriority} to ${settings.maxPriority}`
     }
 
-    // get projectID() {
-    //     this._project
-    // }
+    get project() {
+        this._project
+    }
 
-    // set projectID(id) {
-        // not sure how to handle checking if a number is a valid project ID from within this class definition
-    // }
+    set project(id) {
+        // let myProjects = Object.keys(projects)
+        // if (myProjects.includes(id)) {
+        //     this._project = id
+        // }
+    }
 }

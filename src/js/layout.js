@@ -1,3 +1,5 @@
+import { capitalizeFirstLetter } from "./helpers"
+
 export function pageStructure() {
     // if (window.innerWidth > 1200){
 
@@ -23,13 +25,13 @@ export function pageStructure() {
 }
 
 // Show list of user's projects in nav
-export function displayProjectsNav(projects) {
+export function displayProjectsNav(tasks) {
     let nav = document.querySelector('.nav')
-    let projectIDs = Object.keys(projects)
-    for (let i = 0; i < projectIDs.length; i++) {
+    let projects = Object.keys(tasks)
+    for (let i = 0; i < projects.length; i++) {
         let proj = document.createElement('div')
         proj.classList.add('navProjectTitle')
-        proj.innerText = projects[projectIDs[i]].title
+        proj.innerText = capitalizeFirstLetter(projects[i])
         nav.appendChild(proj)
     }
 }
@@ -47,9 +49,9 @@ export function addTaskCard(card) {
 }
 
 // Creates div containing individual task info
-export function displayTodo(task) {
+export function displayTodo(task, index) {
     let todoDiv = document.createElement('div')
-    todoDiv.id = task.id
+    todoDiv.id = index
     todoDiv.classList.add('taskCard')
     let checkbox = document.createElement('span')
     checkbox.innerHTML = `
