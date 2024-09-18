@@ -20,11 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     tasks.todo.push(new Task('Setup all my tasks', 'todo'))
     tasks.work.push(new Task('Finish email to boss', 'work'))
-    uiManager.updateCurrentProject(capitalizeFirstLetter(todoManager.getCurrentProject()))
+    let titleDisp = document.getElementById('currentProject')
+    uiManager.updateTitleDisplay(capitalizeFirstLetter(todoManager.getCurrentProject()), titleDisp)
     for (let i = 0; i < tasks[todoManager.getCurrentProject()].length; i++) {
 
-        let card = uiManager.displayTodo(tasks.todo[i])
-        uiManager.addTaskCard(card)
+        let card = uiManager.createTaskCard(tasks[todoManager.getCurrentProject()][i])
+        uiManager.displayTask(card)
     }
     
     uiManager.displayProjectsNav(tasks)
