@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let checkboxes = document.querySelectorAll('.checkbox')
+    
     checkboxes.forEach((element) => {
         element.addEventListener('click', uiManager.checkCheckbox)
     })
