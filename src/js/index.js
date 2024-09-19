@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     tasks.todo.push(new Task('Setup all my tasks', 'todo'))
     tasks.work.push(new Task('Finish email to boss', 'work'))
+    tasks.work[0].completeTodo()
     let titleDisp = document.getElementById('currentProject')
     uiManager.updateTitleDisplay(capitalizeFirstLetter(todoManager.getCurrentProject()), titleDisp)
     for (let i = 0; i < tasks[todoManager.getCurrentProject()].length; i++) {
@@ -29,9 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let checkboxes = document.querySelectorAll('.checkbox')
-    // console.log(checkboxes)
     checkboxes.forEach((element) => {
-        // console.log(element) // returns the span that contains the svg
         element.addEventListener('click', uiManager.checkCheckbox)
     })
     
