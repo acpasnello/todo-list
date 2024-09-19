@@ -24,9 +24,19 @@ document.addEventListener('DOMContentLoaded', function() {
     uiManager.updateTitleDisplay(capitalizeFirstLetter(todoManager.getCurrentProject()), titleDisp)
     for (let i = 0; i < tasks[todoManager.getCurrentProject()].length; i++) {
 
-        let card = uiManager.createTaskCard(tasks[todoManager.getCurrentProject()][i])
+        let card = uiManager.createTaskCard(tasks[todoManager.getCurrentProject()][i], i)
         uiManager.displayTask(card)
     }
+
+    let checkboxes = document.querySelectorAll('.checkbox')
+    // console.log(checkboxes)
+    checkboxes.forEach((element) => {
+        // console.log(element) // returns the span that contains the svg
+        element.addEventListener('click', function(ev) {
+            console.log(ev.target)
+            uiManager.checkCheckBox(ev.target)
+        })
+    })
     
     uiManager.displayProjectsNav(tasks)
 })
