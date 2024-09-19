@@ -132,5 +132,43 @@ export const uiManager = (function() {
         return corrected
     }
 
+    function createTaskForm() {
+        let form = document.createElement('form')
+
+        let titleL = document.createElement('label')
+        titleL.setAttribute('for', 'title')
+        let title = document.createElement('input')
+        title.setAttribute('type', 'text')
+        title.id = 'title'
+        title.setAttribute('name', 'title')
+
+        let projectL = document.createElement('label')
+        projectL.setAttribute('for', 'project')
+        let project = document.createElement('input')
+        project.setAttribute('type', 'text')
+        project.id = 'project'
+        project.setAttribute('name', 'project')
+
+        let priorityL = document.createElement('label')
+        priorityL.setAttribute('for', 'priority')
+        let priority = document.createElement('input')
+        priority.setAttribute('type', 'range')
+        priority.id = 'priority'
+        priority.setAttribute('name', 'priority')
+
+        let duedateL = document.createElement('label')
+        duedateL.setAttribute('for', 'duedate')
+        let duedate = document.createElement('input')
+        duedate.setAttribute('type', 'date')
+        duedate.id = 'duedate'
+        duedate.setAttribute('name', 'duedate')
+
+        let elements = [titleL, title, projectL, project, priorityL, priority, duedateL, duedate]
+        for (const element in elements) {
+            form.appendChild(element)
+        }
+       
+    }
+
     return { pageStructure, displayProjectsNav, updateTitleDisplay, displayTask, createTaskCard, displayProject, checkCheckbox, uncheckCheckbox }
 })();
