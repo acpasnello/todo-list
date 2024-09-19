@@ -32,10 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // console.log(checkboxes)
     checkboxes.forEach((element) => {
         // console.log(element) // returns the span that contains the svg
-        element.addEventListener('click', function(ev) {
-            console.log(ev.target)
-            uiManager.checkCheckBox(ev.target)
-        })
+        element.addEventListener('click', uiManager.checkCheckbox)
     })
     
     uiManager.displayProjectsNav(tasks)
