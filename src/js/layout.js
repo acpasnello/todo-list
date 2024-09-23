@@ -18,7 +18,7 @@ export const uiManager = (function() {
     container.classList.add('myContainer', 'container-fluid')
     container.innerHTML = 
     `
-    <div class="nav"></div>
+    <div class="myNav"></div>
     <div class="content">
         <h1 id="currentProject"></h1>
         <div class="tasksDiv"></div>
@@ -45,7 +45,13 @@ export const uiManager = (function() {
     }
 // Show list of user's projects in nav
     function displayProjectsNav(tasks) {
-        let nav = document.querySelector('.nav')
+        let nav = document.querySelector('.myNav')
+
+        let header = document.createElement('h3')
+        header.innerText = 'Projects'
+        header.classList.add('navHeader')
+        nav.appendChild(header)
+
         let projects = Object.keys(tasks)
         for (let i = 0; i < projects.length; i++) {
             let proj = document.createElement('div')
@@ -56,6 +62,15 @@ export const uiManager = (function() {
             })
             nav.appendChild(proj)
         }
+        let newProjButton = document.createElement('button')
+        newProjButton.classList.add('newProjectButton', 'btn', 'btn-dark')
+        newProjButton.innerText = 'New Project'
+        newProjButton.addEventListener('click', function() {
+            let form = createProjectForm()
+            document.body.appendChild(form)
+        })
+
+        nav.appendChild(newProjButton)
     }
 
     // Updates the Title display at the top of the task list
@@ -81,12 +96,14 @@ export const uiManager = (function() {
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
             </svg>`
+            checkbox.addEventListener('click', checkCheckbox)
         } else {
             checkbox.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                 <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
             </svg>`
+            checkbox.addEventListener('click', uncheckCheckbox)
         }
         checkbox.classList.add('checkbox')
         todoDiv.appendChild(checkbox)
@@ -133,10 +150,13 @@ export const uiManager = (function() {
     }
 
     function createTaskForm() {
+        let div = document.createElement('div')
+        div.classList.add('formWindow')
         let form = document.createElement('form')
 
         let titleL = document.createElement('label')
         titleL.setAttribute('for', 'title')
+        titleL.innerText = "Title"
         let title = document.createElement('input')
         title.setAttribute('type', 'text')
         title.id = 'title'
@@ -163,11 +183,52 @@ export const uiManager = (function() {
         duedate.id = 'duedate'
         duedate.setAttribute('name', 'duedate')
 
+        let closeButton = createCloseButton()
+
         let elements = [titleL, title, projectL, project, priorityL, priority, duedateL, duedate]
         for (const element in elements) {
             form.appendChild(element)
         }
-       
+        div.appendChild(form)
+        div.appendChild(closeButton)
+
+        return div
+    }
+
+    function createProjectForm() {
+        let div = document.createElement('div')
+        div.classList.add('formWindow')
+        let form = document.createElement('form')
+
+        let label = document.createElement('label')
+        label.setAttribute('for', 'name')
+        label.innerText = 'Name'
+        let name = document.createElement('input')
+        name.setAttribute('type', 'text')
+        name.id = 'name'
+        name.setAttribute('name', 'name')
+
+        let closeButton = createCloseButton()
+
+
+        form.appendChild(label)
+        form.appendChild(name)
+        div.appendChild(form)
+        div.appendChild(closeButton)
+
+        return div
+    }
+
+    // could add a parameter to this function that takes the form the button is part of, to return the button already having the ability to close the form
+    function createCloseButton() {
+        let closeButton = document.createElement('button')
+        closeButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+        </svg>`
+        closeButton.classList.add('closeButton')
+
+        return closeButton
     }
 
     return { pageStructure, displayProjectsNav, updateTitleDisplay, displayTask, createTaskCard, displayProject, checkCheckbox, uncheckCheckbox }

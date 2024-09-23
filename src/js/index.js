@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
         uiManager.displayTask(card)
     }
 
-    let checkboxes = document.querySelectorAll('.checkbox')
-    
-    checkboxes.forEach((element) => {
-        element.addEventListener('click', uiManager.checkCheckbox)
-    })
+    // let checkboxes = document.querySelectorAll('.checkbox')
+
+    // checkboxes.forEach((element) => {
+    //     element.addEventListener('click', uiManager.checkCheckbox)
+    // })
     
     uiManager.displayProjectsNav(tasks)
 })

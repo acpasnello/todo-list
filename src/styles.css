@@ -15,9 +15,13 @@ body {
     flex-direction: row;
 }
 
-.nav {
+.myNav {
     flex-grow: 0;
     flex-basis: 15%;
+}
+
+.navHeader {
+    color: #424242;
 }
 
 .content {
@@ -39,11 +43,38 @@ body {
 
 .navProjectTitle {
     border-bottom: 1px solid #303030;
-    padding: 8px 0;
+    padding: 4px 0;
+    margin: 4px 0;
 }
 
 svg {
     vertical-align: top;
     padding: 2px;
+    position: relative;
+    top: 2px;
+}
+
+.newProjectButton {
+    width: 100%;
+    background-color: #333;
+    color: #FFFFFF;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid;
+    font-size: 14px;
+}
+
+.formWindow {
+    display: block;
+    position: fixed;
+    z-index: 1;
+}
+
+.closeButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
 }
 /* @media (min-width) */
