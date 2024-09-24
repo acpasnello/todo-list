@@ -62,12 +62,13 @@ export const uiManager = (function() {
             })
             nav.appendChild(proj)
         }
+
         let newProjButton = document.createElement('button')
-        newProjButton.classList.add('newProjectButton', 'btn', 'btn-dark')
+        newProjButton.classList.add('newProjectButton', 'darkButton', 'myButton')
         newProjButton.innerText = 'New Project'
         newProjButton.addEventListener('click', function() {
             let form = createProjectForm()
-            document.body.appendChild(form)
+            nav.appendChild(form)
         })
 
         nav.appendChild(newProjButton)
@@ -197,24 +198,34 @@ export const uiManager = (function() {
 
     function createProjectForm() {
         let div = document.createElement('div')
-        div.classList.add('formWindow')
+        div.classList.add('newProjectDiv')
         let form = document.createElement('form')
 
         let label = document.createElement('label')
         label.setAttribute('for', 'name')
-        label.innerText = 'Name'
+        label.innerText = 'New project: '
         let name = document.createElement('input')
         name.setAttribute('type', 'text')
         name.id = 'name'
         name.setAttribute('name', 'name')
 
-        let closeButton = createCloseButton()
+        let submit = document.createElement('button')
+        submit.innerText = "Create"
+        submit.classList.add('darkButton', 'myButton', 'projectFormButton')
+
+        let cancel = document.createElement('button')
+        cancel.innerText = 'Cancel'
+        cancel.classList.add('myButton', 'darkButton', 'projectFormButton')
+        cancel.addEventListener('click', function() {
+            cancel.parentElement.parentElement.remove()
+        })
 
 
         form.appendChild(label)
         form.appendChild(name)
+        form.appendChild(submit)
+        form.appendChild(cancel)
         div.appendChild(form)
-        div.appendChild(closeButton)
 
         return div
     }

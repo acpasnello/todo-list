@@ -47,31 +47,46 @@ body {
     margin: 4px 0;
 }
 
-svg {
+span.checkbox > svg {
     vertical-align: top;
     padding: 2px;
     position: relative;
     top: 2px;
 }
 
-.newProjectButton {
-    width: 100%;
-    background-color: #333;
-    color: #FFFFFF;
-    padding: 8px;
+.myButton {
     border-radius: 6px;
     border: 1px solid;
+}
+
+.darkButton {
+    background-color: #333;
+    color: #FFFFFF;
+}
+
+.newProjectButton {
+    width: 100%;
+    padding: 8px;
     font-size: 14px;
 }
 
-.formWindow {
+.projectFormButton {
+    width: 50%;
+}
+
+.newProjectDiv {
     display: block;
-    position: fixed;
+    position: relative;
     z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px;
+    border: 1px solid gray;
+    border-radius: 18px;
 }
 
 .closeButton {
-    position: fixed;
+    position: absolute;
     top: 10px;
     right: 10px;
     width: 18px;
