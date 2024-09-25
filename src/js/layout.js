@@ -4,27 +4,27 @@ import { todoManager } from "./todoManager";
 export const uiManager = (function() {
 
     function pageStructure() {
-    // if (window.innerWidth > 1200){
+        // if (window.innerWidth > 1200){
 
-    // } else if (window.innerWidth > 800) {
+        // } else if (window.innerWidth > 800) {
 
-    // } else if (window.innerWidth > 400) {
+        // } else if (window.innerWidth > 400) {
 
-    // } else {
+        // } else {
 
-    // }
+        // }
 
-    let container = document.createElement('div')
-    container.classList.add('myContainer', 'container-fluid')
-    container.innerHTML = 
-    `
-    <div class="myNav"></div>
-    <div class="content">
-        <h1 id="currentProject"></h1>
-        <div class="tasksDiv"></div>
-    </div>
-    `
-    document.body.appendChild(container)
+        let container = document.createElement('div')
+        container.classList.add('myContainer', 'container-fluid')
+        container.innerHTML = 
+        `
+        <div class="myNav"></div>
+        <div class="content">
+            <h1 id="currentProject"></h1>
+            <div class="tasksDiv"></div>
+        </div>
+        `
+        document.body.appendChild(container)
     
     }
 
@@ -37,7 +37,6 @@ export const uiManager = (function() {
             let titleDisp = document.getElementById('currentProject')
             updateTitleDisplay(project, titleDisp)
             tasks[project].forEach((task, index) => {
-                console.log(index)
                 let card = createTaskCard(task, index)
                 displayTask(card)
             });
@@ -46,7 +45,7 @@ export const uiManager = (function() {
 // Show list of user's projects in nav
     function displayProjectsNav(tasks) {
         let nav = document.querySelector('.myNav')
-
+        nav.innerHTML = ''
         let header = document.createElement('h3')
         header.innerText = 'Projects'
         header.classList.add('navHeader')
@@ -66,12 +65,15 @@ export const uiManager = (function() {
         let newProjButton = document.createElement('button')
         newProjButton.classList.add('newProjectButton', 'darkButton', 'myButton')
         newProjButton.innerText = 'New Project'
-        newProjButton.addEventListener('click', function() {
-            let form = createProjectForm()
-            nav.appendChild(form)
-        })
 
+        let newProjForm = createProjectForm(tasks)
+        newProjForm.classList.add('hidden')
+        newProjButton.addEventListener('click', function() {
+            newProjForm.classList.remove('hidden')
+            newProjButton.classList.add('hidden')
+        })
         nav.appendChild(newProjButton)
+        nav.appendChild(newProjForm)
     }
 
     // Updates the Title display at the top of the task list
@@ -196,7 +198,7 @@ export const uiManager = (function() {
         return div
     }
 
-    function createProjectForm() {
+    function createProjectForm(tasks) {
         let div = document.createElement('div')
         div.classList.add('newProjectDiv')
         let form = document.createElement('form')
@@ -212,15 +214,26 @@ export const uiManager = (function() {
         let submit = document.createElement('button')
         submit.innerText = "Create"
         submit.classList.add('darkButton', 'myButton', 'projectFormButton')
+        submit.setAttribute('type', 'submit')
+        // submit.addEventListener('click', function (e){
+        //     e.preventDefault()
+        // })
 
         let cancel = document.createElement('button')
         cancel.innerText = 'Cancel'
         cancel.classList.add('myButton', 'darkButton', 'projectFormButton')
-        cancel.addEventListener('click', function() {
-            cancel.parentElement.parentElement.remove()
+        cancel.addEventListener('click', function(e) {
+            e.preventDefault()
+            name.value = ""
+            cancel.parentElement.parentElement.classList.add('hidden')
+            let newProjButton = document.querySelector('.newProjectButton')
+            newProjButton.classList.remove('hidden')
         })
-
-
+        
+        form.addEventListener('submit', function (e){
+            e.preventDefault()
+            todoManager.createNewProject(e, tasks)
+        })
         form.appendChild(label)
         form.appendChild(name)
         form.appendChild(submit)
@@ -242,5 +255,11 @@ export const uiManager = (function() {
         return closeButton
     }
 
-    return { pageStructure, displayProjectsNav, updateTitleDisplay, displayTask, createTaskCard, displayProject, checkCheckbox, uncheckCheckbox }
+    function uiRefresh(project, tasks) {
+        pageStructure()
+        displayProjectsNav(tasks)
+        displayProject(project, tasks)
+    }
+
+    return { pageStructure, displayProjectsNav, updateTitleDisplay, displayTask, createTaskCard, displayProject, checkCheckbox, uncheckCheckbox, uiRefresh }
 })();
