@@ -91,9 +91,37 @@ span.checkbox > svg {
     right: 10px;
     width: 18px;
     height: 18px;
+    padding: 0;
 }
 
 .hidden {
     display: none;
 }
+
+.newTaskFormDiv {
+    position: relative;
+    max-width: 50%;
+    border-bottom: 1px solid #9e9e9e;
+    /* border-radius: 8px; */
+    padding: 8px;
+    color:#424242
+}
+
+#newTaskForm > div {
+    margin: 8px 0;
+}
+
+.formRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 10px;
+}
+
+.formRow input[type="text"] {
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
 /* @media (min-width) */

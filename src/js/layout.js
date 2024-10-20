@@ -24,18 +24,25 @@ export const uiManager = (function() {
             <div class="tasksDiv"></div>
         </div>
         `
+        document.body.innerHTML = ""
         document.body.appendChild(container)
     
     }
 
-    // function that changes which project is displayed
+    // Displays provided project, updates title and lists tasks
     function displayProject(project, tasks) {
         todoManager.changeCurrentProject(project)
         if (tasks[project]) {
             let taskDiv = document.querySelector('.tasksDiv')
             taskDiv.innerHTML = ""
+
             let titleDisp = document.getElementById('currentProject')
             updateTitleDisplay(project, titleDisp)
+
+            let newTaskForm = createTaskForm(tasks)
+            // newTaskForm.classList.add('hidden')
+            titleDisp.insertAdjacentElement('afterend', newTaskForm)
+
             tasks[project].forEach((task, index) => {
                 let card = createTaskCard(task, index)
                 displayTask(card)
@@ -57,7 +64,7 @@ export const uiManager = (function() {
             proj.classList.add('navProjectTitle')
             proj.innerText = capitalizeFirstLetter(projects[i])
             proj.addEventListener('click', function(e){
-                displayProject(projects[i], tasks)
+                uiRefresh(projects[i], tasks)
             })
             nav.appendChild(proj)
         }
@@ -152,46 +159,96 @@ export const uiManager = (function() {
         return corrected
     }
 
-    function createTaskForm() {
+    function createTaskForm(tasks) {
         let div = document.createElement('div')
-        div.classList.add('formWindow')
+        div.classList.add('newTaskFormDiv')
         let form = document.createElement('form')
+        form.id = "newTaskForm"
 
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            todoManager.createNewTask(e, tasks)
+        })
+
+        let titleDiv = document.createElement('div')
         let titleL = document.createElement('label')
         titleL.setAttribute('for', 'title')
-        titleL.innerText = "Title"
+        titleL.innerText = "Title: "
         let title = document.createElement('input')
         title.setAttribute('type', 'text')
         title.id = 'title'
         title.setAttribute('name', 'title')
+        title.required = true;
+        titleDiv.appendChild(titleL)
+        titleDiv.appendChild(title)
 
+        let projectDiv = document.createElement('div')
+        let userProjects = Object.keys(tasks)
         let projectL = document.createElement('label')
         projectL.setAttribute('for', 'project')
-        let project = document.createElement('input')
-        project.setAttribute('type', 'text')
+        projectL.innerText = 'Project: '
+        let project = document.createElement('select')
         project.id = 'project'
         project.setAttribute('name', 'project')
+        for (let i = 0; i < userProjects.length; i++) {
+            let option = document.createElement('option')
+            option.value = `${capitalizeFirstLetter(userProjects[i])}`
+            option.innerText = `${capitalizeFirstLetter(userProjects[i])}`
+            if (userProjects[i] == todoManager.getCurrentProject()) {
+                option.selected = true
+            }
+            project.appendChild(option)
+        }
+        projectDiv.appendChild(projectL)
+        projectDiv.appendChild(project)
 
+        let priorityDiv = document.createElement('div')
         let priorityL = document.createElement('label')
         priorityL.setAttribute('for', 'priority')
+        priorityL.innerText = 'Priority'
         let priority = document.createElement('input')
-        priority.setAttribute('type', 'range')
+        priority.setAttribute('type', 'number')
         priority.id = 'priority'
+        priority.value = '1'
         priority.setAttribute('name', 'priority')
+        priority.setAttribute('min', '0')
+        priority.setAttribute('max', '3')
+        priorityDiv.appendChild(priorityL)
+        priorityDiv.appendChild(priority)
 
+        let ddDiv = document.createElement('div')
         let duedateL = document.createElement('label')
         duedateL.setAttribute('for', 'duedate')
+        duedateL.innerText = 'Task Due: '
         let duedate = document.createElement('input')
         duedate.setAttribute('type', 'date')
         duedate.id = 'duedate'
         duedate.setAttribute('name', 'duedate')
+        ddDiv.appendChild(duedateL)
+        ddDiv.appendChild(duedate)
 
         let closeButton = createCloseButton()
+        
+        let addButton = document.createElement('button')
+        addButton.setAttribute('type', 'submit')
+        addButton.innerText = "Add"
+        addButton.classList.add('myButton', 'darkButton')
 
-        let elements = [titleL, title, projectL, project, priorityL, priority, duedateL, duedate]
-        for (const element in elements) {
-            form.appendChild(element)
+
+        let bottomDiv = document.createElement('div')
+        bottomDiv.classList.add('formRow')
+        let bottomElements = [ddDiv, projectDiv, priorityDiv]
+
+        let bottomLeft = document.createElement('div')
+        bottomLeft.classList.add('formRow')
+
+        for (const element of bottomElements) {
+            bottomLeft.appendChild(element)
         }
+        bottomDiv.appendChild(bottomLeft)
+        bottomDiv.appendChild(addButton)
+        form.appendChild(titleDiv)
+        form.appendChild(bottomDiv)
         div.appendChild(form)
         div.appendChild(closeButton)
 
@@ -215,9 +272,6 @@ export const uiManager = (function() {
         submit.innerText = "Create"
         submit.classList.add('darkButton', 'myButton', 'projectFormButton')
         submit.setAttribute('type', 'submit')
-        // submit.addEventListener('click', function (e){
-        //     e.preventDefault()
-        // })
 
         let cancel = document.createElement('button')
         cancel.innerText = 'Cancel'
