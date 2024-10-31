@@ -178,6 +178,7 @@ export const uiManager = (function() {
         title.setAttribute('type', 'text')
         title.id = 'title'
         title.setAttribute('name', 'title')
+        title.setAttribute('size', '48')
         title.required = true;
         titleDiv.appendChild(titleL)
         titleDiv.appendChild(title)
