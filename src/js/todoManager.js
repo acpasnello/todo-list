@@ -47,6 +47,10 @@ export const todoManager = (function (){
             }
         }
         let task = new Task(title, project)
+        task.dueDate = duedate
+        console.log(duedate)
+        task.priority = priority
+        console.log(task)
     }
 
     function storeTasks(tasks) {
